@@ -102,18 +102,17 @@ class StockBNReportXls(ReportXlsx):
 		line_row = 7
 		line_column = 0
 
-		sheet.write(header_row,header_column,'Kode Barang.',format_cikupa)
-		sheet.write(header_row,header_column+1,'Nama.',format_cikupa)
-		sheet.write(header_row,header_column+2,'Gudang.',format_cikupa)
+		sheet.write(header_row,header_column,'Product Code.',format_cikupa)
+		sheet.write(header_row,header_column+1,'Name.',format_cikupa)
+		sheet.write(header_row,header_column+2,'Warehouse.',format_cikupa)
 		sheet.write(header_row,header_column+3,'Batch Number.',format_cikupa)
-		sheet.write(header_row,header_column+4,'Jumlah.',format_cikupa)
+		sheet.write(header_row,header_column+4,'Total.',format_cikupa)
 
 		for comp in get_company_id:
 			for each in get_category:
 				number_seq	= 0
 				get_company_id = self.get_company_id(data)
 				line_row 	+= 1 #12891
-				print "COMPANY", comp.id
 				sheet.write(line_row,line_column,each.name,format99)
 				if comp.id != 3:
 					for product in self.get_product(each.id,comp.id):
@@ -166,7 +165,6 @@ class StockBNReportXls(ReportXlsx):
 							for datax in quant_data:
 								total_lot_m2 += datax.qty
 								location = datax.location_id.location_id.name
-							#print ">>>", lot.id,total_lot_m2
 							total_lot_lbr = total_lot_m2 / lot.product_id.uom2_rate
 							if total_lot_m2 != 0:
 								line_row += 1
